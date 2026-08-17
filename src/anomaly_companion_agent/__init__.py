@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from anomaly-companion-agent!")
+"""Anomaly Companion: MVP de agente para troubleshooting com LangGraph."""
