@@ -1,0 +1,24 @@
+[project]
+name = "anomaly-companion-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "wjohnnyhonorato", email = "william-johnny@hotmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "ipython>=9.16.1",
+    "langchain-google-genai>=4.3.4",
+    "langchain-openai>=1.5.1",
+    "langgraph>=1.2.11",
+    "openai>=3.1.0",
+    "python-dotenv>=1.2.2",
+]
+
+[project.scripts]
+anomaly-companion-agent = "anomaly_companion_agent:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
