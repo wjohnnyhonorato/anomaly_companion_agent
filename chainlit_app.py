@@ -34,40 +34,28 @@ async def on_chat_start():
 async def on_message(message: cl.Message):
     """Recebe uma mensagem e a envia para o LangGraph."""
 
-    # Constrói o estado inicial esperado pelo MessagesState.
-    #
-    # message.content contém somente o texto digitado
-    # pelo usuário na interface do Chainlit.
     initial_state = {
         "messages": [
             HumanMessage(content=message.content)
         ]
     }
 
-    # O callback permite que o Chainlit acompanhe a execução
-    # do LangGraph, incluindo chamadas do modelo e das tools.
     execution_config = {
         "callbacks": [
             cl.LangchainCallbackHandler()
         ]
     }
 
-    # Executa o grafo de forma assíncrona.
-    #
-    # O fluxo poderá ser:
-    # assistant → tools → assistant → END
-    #
-    # O resultado é o estado completo ao final da execução.
     result = await graph.ainvoke(
         initial_state,
         config=execution_config,
     )
 
-    # O MessagesState acumula todas as mensagens da execução.
-    # A última mensagem é a resposta final produzida pelo agente.
     final_message = result["messages"][-1]
 
-    # Apresenta o conteúdo da resposta na interface do Chainlit.
+    # Use .text, e não .content.
+    answer_text = final_message.text
+
     await cl.Message(
-        content=final_message.content
+        content=answer_text
     ).send()
